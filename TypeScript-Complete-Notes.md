@@ -1,4 +1,4 @@
-# TypeScript – Complete Tutorial Documentation
+# TypeScript – Complete Notes
 
 ## Course Introduction
 
@@ -29,12 +29,14 @@ TypeScript is **NOT** a new programming language. It's important to understand t
 ### Key Misconceptions Cleared
 
 **What TypeScript IS:**
+
 - A development tool and wrapper around JavaScript
 - Focused on **Type Safety** - this is the core concept
 - A static checker that analyzes your code while writing
 - A way to catch errors before runtime
 
 **What TypeScript IS NOT:**
+
 - A standalone programming language
 - A tool that gives you new JavaScript features
 - Something that completely eliminates JavaScript quirks
@@ -47,6 +49,7 @@ TypeScript Code (.ts) → Transpiled → JavaScript Code (.js)
 ```
 
 **Important Notes:**
+
 - TypeScript code is **transpiled** (converted) to JavaScript
 - Your production code is still 100% JavaScript
 - TypeScript is purely a **development tool**
@@ -59,6 +62,7 @@ TypeScript Code (.ts) → Transpiled → JavaScript Code (.js)
 ### Prerequisites
 
 Before installing TypeScript, ensure you have:
+
 - **Node.js** installed (check with `node -v`)
 - **NPM** available (check with `npm -v`)
 
@@ -73,22 +77,25 @@ tsc -v
 ```
 
 **Platform-Specific Notes:**
+
 - **Windows**: Use GitBash or PowerShell as administrator
 - **Linux/Mac**: Use `sudo` if required for global installation
 
 ### Basic Usage
 
 1. Create a TypeScript file (`.ts` extension)
+
 ```typescript
 // intro.ts
 let user = {
-    name: "Hitesh",
-    age: 10
-}
+  name: "Hitesh",
+  age: 10,
+};
 console.log(user.name);
 ```
 
 2. Compile to JavaScript
+
 ```bash
 tsc intro.ts
 ```
@@ -112,9 +119,9 @@ This generates `intro.js` with equivalent JavaScript code.
 
 ```javascript
 // JavaScript allows this (problematic):
-2 + "2"        // Result: "22" (string concatenation)
-2 + null       // Result: 2
-2 + undefined  // Result: NaN
+2 + "2"; // Result: "22" (string concatenation)
+2 + null; // Result: 2
+2 + undefined; // Result: NaN
 ```
 
 **TypeScript prevents these issues** by enforcing type consistency at development time.
@@ -122,6 +129,7 @@ This generates `intro.js` with equivalent JavaScript code.
 ### Available Types in TypeScript
 
 TypeScript provides many types, including:
+
 - **Primitive types**: `string`, `number`, `boolean`
 - **Special types**: `any`, `void`, `null`, `undefined`, `never`, `unknown`
 - **Complex types**: `object`, `array`, `tuple`, `union`, `interface`
@@ -196,7 +204,7 @@ The `any` type is TypeScript's way to **turn off type checking** for a variable:
 ```typescript
 let hero; // Implicitly 'any'
 function getHero() {
-    return "thor"; // Could return anything
+  return "thor"; // Could return anything
 }
 
 let hero = getHero(); // hero is 'any'
@@ -206,8 +214,8 @@ let hero = getHero(); // hero is 'any'
 
 ```typescript
 let hero: any = "thor";
-hero = true;        // ✅ Allowed but dangerous
-hero = 42;          // ✅ Allowed but dangerous
+hero = true; // ✅ Allowed but dangerous
+hero = 42; // ✅ Allowed but dangerous
 hero.toUpperCase(); // ❌ Runtime error if hero is number
 ```
 
@@ -234,12 +242,12 @@ Without TypeScript, JavaScript functions accept any parameter type:
 ```javascript
 // JavaScript - No type safety
 function addTwo(number) {
-    return number + 2;
+  return number + 2;
 }
 
-addTwo(5);        // Works
-addTwo("5");      // Also "works" but gives "52"
-addTwo(true);     // Also "works" but gives 3
+addTwo(5); // Works
+addTwo("5"); // Also "works" but gives "52"
+addTwo(true); // Also "works" but gives 3
 ```
 
 With TypeScript:
@@ -247,12 +255,12 @@ With TypeScript:
 ```typescript
 // TypeScript - Type safe
 function addTwo(number: number): number {
-    return number + 2;
+  return number + 2;
 }
 
-addTwo(5);        // ✅ Valid
-addTwo("5");      // ❌ Error: Argument of type 'string' not assignable
-addTwo(true);     // ❌ Error: Argument of type 'boolean' not assignable
+addTwo(5); // ✅ Valid
+addTwo("5"); // ❌ Error: Argument of type 'string' not assignable
+addTwo(true); // ❌ Error: Argument of type 'boolean' not assignable
 ```
 
 ### Function Return Types
@@ -261,17 +269,17 @@ Always specify what your function returns:
 
 ```typescript
 function getUpper(value: string): string {
-    return value.toUpperCase();
+  return value.toUpperCase();
 }
 
 // Without return type annotation (problematic):
 function addTwo(number: number) {
-    return "hello"; // TypeScript allows this!
+  return "hello"; // TypeScript allows this!
 }
 
 // With return type annotation (safe):
 function addTwo(number: number): number {
-    return "hello"; // ❌ Error: Type 'string' not assignable to 'number'
+  return "hello"; // ❌ Error: Type 'string' not assignable to 'number'
 }
 ```
 
@@ -279,7 +287,7 @@ function addTwo(number: number): number {
 
 ```typescript
 function signUpUser(name: string, email: string, isPaid: boolean) {
-    // Function implementation
+  // Function implementation
 }
 
 signUpUser("Hitesh", "h@h.com", false);
@@ -289,7 +297,7 @@ signUpUser("Hitesh", "h@h.com", false);
 
 ```typescript
 function loginUser(name: string, email: string, isPaid: boolean = false) {
-    // isPaid is optional with default value false
+  // isPaid is optional with default value false
 }
 
 loginUser("H", "h@h.com"); // isPaid defaults to false
@@ -300,8 +308,8 @@ loginUser("H", "h@h.com"); // isPaid defaults to false
 ```typescript
 // Arrow function with return type
 const getHello = (s: string): string => {
-    return s;
-}
+  return s;
+};
 
 // Or implicit return
 const getHello = (s: string): string => s;
@@ -312,13 +320,13 @@ const getHello = (s: string): string => s;
 ```typescript
 // Void - function doesn't return anything
 function consoleError(errorMsg: string): void {
-    console.log(errorMsg);
-    // Cannot return a value
+  console.log(errorMsg);
+  // Cannot return a value
 }
 
 // Never - function never returns (throws error or infinite loop)
 function handleError(errorMsg: string): never {
-    throw new Error(errorMsg);
+  throw new Error(errorMsg);
 }
 ```
 
@@ -330,9 +338,9 @@ TypeScript automatically infers types in array methods:
 const heroes = ["thor", "spiderman", "ironman"];
 
 heroes.map((hero): string => {
-    return `Hero is ${hero}`;
-    // hero is automatically inferred as string
-    // return type is explicitly string
+  return `Hero is ${hero}`;
+  // hero is automatically inferred as string
+  // return type is explicitly string
 });
 ```
 
@@ -344,57 +352,58 @@ heroes.map((hero): string => {
 
 ```typescript
 // Method 1: Inline type annotation
-function createUser(user: {name: string, isPaid: boolean}) {
-    // Function implementation
+function createUser(user: { name: string; isPaid: boolean }) {
+  // Function implementation
 }
 
-createUser({name: "hitesh", isPaid: false});
+createUser({ name: "hitesh", isPaid: false });
 ```
 
 ### Object with Optional Properties
 
 ```typescript
-function createCourse(course: {name: string, price?: number}) {
-    // price is optional
+function createCourse(course: { name: string; price?: number }) {
+  // price is optional
 }
 
-createCourse({name: "React Course"});           // ✅ Valid
-createCourse({name: "React Course", price: 99}); // ✅ Also valid
+createCourse({ name: "React Course" }); // ✅ Valid
+createCourse({ name: "React Course", price: 99 }); // ✅ Also valid
 ```
 
 ### Readonly Properties
 
 ```typescript
 type User = {
-    readonly _id: string;
-    name: string;
-    email: string;
-}
+  readonly _id: string;
+  name: string;
+  email: string;
+};
 
 let user: User = {
-    _id: "123",
-    name: "Hitesh", 
-    email: "h@h.com"
-}
+  _id: "123",
+  name: "Hitesh",
+  email: "h@h.com",
+};
 
-user.name = "Updated";  // ✅ Allowed
-user._id = "456";       // ❌ Error: Cannot assign to readonly property
+user.name = "Updated"; // ✅ Allowed
+user._id = "456"; // ❌ Error: Cannot assign to readonly property
 ```
 
 ### Combining Types
 
 ```typescript
 type CardNumber = {
-    cardnumber: string
-}
+  cardnumber: string;
+};
 
 type CardDate = {
-    carddate: string
-}
+  carddate: string;
+};
 
-type CardDetails = CardNumber & CardDate & {
-    cvv: number
-}
+type CardDetails = CardNumber &
+  CardDate & {
+    cvv: number;
+  };
 
 // CardDetails has all three properties
 ```
@@ -407,44 +416,46 @@ type CardDetails = CardNumber & CardDate & {
 
 ```typescript
 type User = {
-    name: string;
-    email: string;
-    isActive: boolean;
-}
+  name: string;
+  email: string;
+  isActive: boolean;
+};
 
 // Usage
 const user1: User = {
-    name: "Hitesh",
-    email: "h@h.com", 
-    isActive: true
-}
+  name: "Hitesh",
+  email: "h@h.com",
+  isActive: true,
+};
 ```
 
 ### Interfaces
 
 ```typescript
 interface User {
-    name: string;
-    email: string;
-    isActive: boolean;
+  name: string;
+  email: string;
+  isActive: boolean;
 }
 
 // Usage (same as type)
 const user1: User = {
-    name: "Hitesh",
-    email: "h@h.com",
-    isActive: true
-}
+  name: "Hitesh",
+  email: "h@h.com",
+  isActive: true,
+};
 ```
 
 ### Key Differences
 
 **Interface Benefits:**
+
 - Can be extended (inheritance)
 - Can be "reopened" (add properties later)
 - Better for object shapes
 
 **Type Benefits:**
+
 - Can represent unions, primitives, etc.
 - More flexible for complex types
 
@@ -452,12 +463,12 @@ const user1: User = {
 
 ```typescript
 interface User {
-    name: string;
-    email: string;
+  name: string;
+  email: string;
 }
 
 interface Admin extends User {
-    role: "admin" | "ta" | "learner";
+  role: "admin" | "ta" | "learner";
 }
 
 // Admin has name, email, AND role
@@ -467,13 +478,13 @@ interface Admin extends User {
 
 ```typescript
 interface User {
-    name: string;
-    email: string;
+  name: string;
+  email: string;
 }
 
 // Later in code (or different file)
 interface User {
-    githubToken: string; // Added to existing interface
+  githubToken: string; // Added to existing interface
 }
 
 // Now User has name, email, AND githubToken
@@ -483,17 +494,17 @@ interface User {
 
 ```typescript
 interface User {
-    readonly dbId: number;
-    email: string;
-    userId: number;
-    googleId?: string;
-    
-    // Method definition
-    startTrial(): string;
-    getCoupon(couponName: string): number;
-    
-    // Alternative method syntax
-    getCoupon2: (couponName: string) => number;
+  readonly dbId: number;
+  email: string;
+  userId: number;
+  googleId?: string;
+
+  // Method definition
+  startTrial(): string;
+  getCoupon(couponName: string): number;
+
+  // Alternative method syntax
+  getCoupon2: (couponName: string) => number;
 }
 ```
 
@@ -516,13 +527,13 @@ const superHeros: Array<string> = ["thor", "spiderman"];
 
 ```typescript
 type User = {
-    name: string;
-    isActive: boolean;
-}
+  name: string;
+  isActive: boolean;
+};
 
 const allUsers: User[] = [
-    {name: "hitesh", isActive: true},
-    {name: "harsh", isActive: false}
+  { name: "hitesh", isActive: true },
+  { name: "harsh", isActive: false },
 ];
 ```
 
@@ -530,9 +541,9 @@ const allUsers: User[] = [
 
 ```typescript
 const MLModel: number[][] = [
-    [255, 255, 255],
-    [0, 0, 0],
-    [128, 128, 128]
+  [255, 255, 255],
+  [0, 0, 0],
+  [128, 128, 128],
 ];
 ```
 
@@ -541,8 +552,8 @@ const MLModel: number[][] = [
 ```typescript
 const numbers: number[] = [1, 2, 3];
 
-numbers.push(4);    // ✅ Valid
-numbers.push("5");  // ❌ Error: Argument of type 'string' not assignable
+numbers.push(4); // ✅ Valid
+numbers.push("5"); // ❌ Error: Argument of type 'string' not assignable
 ```
 
 ---
@@ -556,28 +567,28 @@ Union types allow a variable to be one of several types:
 ```typescript
 let score: number | string;
 
-score = 33;      // ✅ Valid
-score = "55";    // ✅ Valid
-score = true;    // ❌ Error: boolean not in union
+score = 33; // ✅ Valid
+score = "55"; // ✅ Valid
+score = true; // ❌ Error: boolean not in union
 ```
 
 ### Practical Union Examples
 
 ```typescript
 type User = {
-    name: string;
-    id: number;
-}
+  name: string;
+  id: number;
+};
 
 type Admin = {
-    username: string;
-    id: number;
-}
+  username: string;
+  id: number;
+};
 
 let person: User | Admin;
 
-person = {name: "hitesh", id: 334}; // ✅ Valid User
-person = {username: "hc", id: 334}; // ✅ Valid Admin
+person = { name: "hitesh", id: 334 }; // ✅ Valid User
+person = { username: "hc", id: 334 }; // ✅ Valid Admin
 ```
 
 ### Union Type Challenges
@@ -586,12 +597,12 @@ When using unions, you can only access properties that exist on ALL types:
 
 ```typescript
 function getDbId(id: number | string) {
-    // id.toLowerCase(); // ❌ Error: number doesn't have toLowerCase
-    
-    // Type narrowing required
-    if (typeof id === "string") {
-        id.toLowerCase(); // ✅ Valid: TypeScript knows id is string here
-    }
+  // id.toLowerCase(); // ❌ Error: number doesn't have toLowerCase
+
+  // Type narrowing required
+  if (typeof id === "string") {
+    id.toLowerCase(); // ✅ Valid: TypeScript knows id is string here
+  }
 }
 ```
 
@@ -611,8 +622,8 @@ const data2: number[] | string[] = [1, 2, 3]; // or ["1", "2", "3"]
 // Literal union types
 let seatAllotment: "aisle" | "middle" | "window";
 
-seatAllotment = "aisle";    // ✅ Valid
-seatAllotment = "crew";     // ❌ Error: not in literal union
+seatAllotment = "aisle"; // ✅ Valid
+seatAllotment = "crew"; // ❌ Error: not in literal union
 ```
 
 ---
@@ -627,8 +638,8 @@ Tuples are arrays with **fixed length** and **specific types** at specific posit
 // Array (flexible)
 const user: (string | number)[] = [1, "hc"]; // Can add more elements
 
-// Tuple (fixed structure)  
-const user: [string, number] = ["hc", 131];   // Exactly 2 elements, specific types
+// Tuple (fixed structure)
+const user: [string, number] = ["hc", 131]; // Exactly 2 elements, specific types
 ```
 
 ### Tuple Examples
@@ -655,7 +666,7 @@ const user: [string, number] = ["hc", 131];
 
 // Problem: Array methods still work!
 user.push("admin"); // ✅ TypeScript allows this (shouldn't!)
-user.pop();         // ✅ TypeScript allows this (shouldn't!)
+user.pop(); // ✅ TypeScript allows this (shouldn't!)
 
 // This is a known limitation of TypeScript tuples
 ```
@@ -674,9 +685,9 @@ user.pop();         // ✅ TypeScript allows this (shouldn't!)
 
 ```typescript
 enum SeatChoice {
-    AISLE,    // 0
-    MIDDLE,   // 1  
-    WINDOW    // 2
+  AISLE, // 0
+  MIDDLE, // 1
+  WINDOW, // 2
 }
 
 const hcSeat = SeatChoice.AISLE; // Value: 0
@@ -686,9 +697,9 @@ const hcSeat = SeatChoice.AISLE; // Value: 0
 
 ```typescript
 enum SeatChoice {
-    AISLE = "aisle",
-    MIDDLE = "middle", 
-    WINDOW = "window"
+  AISLE = "aisle",
+  MIDDLE = "middle",
+  WINDOW = "window",
 }
 
 const hcSeat = SeatChoice.AISLE; // Value: "aisle"
@@ -698,9 +709,9 @@ const hcSeat = SeatChoice.AISLE; // Value: "aisle"
 
 ```typescript
 enum Responses {
-    No = 0,
-    Yes = 1,
-    Maybe = "maybe"
+  No = 0,
+  Yes = 1,
+  Maybe = "maybe",
 }
 ```
 
@@ -712,9 +723,9 @@ String enums generate more predictable JavaScript:
 // Generated from string enum
 var SeatChoice;
 (function (SeatChoice) {
-    SeatChoice["AISLE"] = "aisle";
-    SeatChoice["MIDDLE"] = "middle";
-    SeatChoice["WINDOW"] = "window";
+  SeatChoice["AISLE"] = "aisle";
+  SeatChoice["MIDDLE"] = "middle";
+  SeatChoice["WINDOW"] = "window";
 })(SeatChoice || (SeatChoice = {}));
 ```
 
@@ -734,10 +745,10 @@ Type assertions tell TypeScript "trust me, I know what type this is":
 
 ```typescript
 // Basic syntax
-(someValue as string)
-
-// Alternative syntax (not recommended in JSX)
-<string>someValue
+(someValue as string) <
+  // Alternative syntax (not recommended in JSX)
+  string >
+  someValue;
 ```
 
 ### Practical Examples
@@ -753,6 +764,7 @@ const response = getData() as User;
 ### Type Assertions vs Type Casting
 
 **Important**: Type assertions are NOT type casting:
+
 - They don't change the runtime type
 - They only tell TypeScript's compiler what type to assume
 - No runtime type conversion happens
@@ -778,15 +790,15 @@ const numValue: number = someValue as number; // Compiles but wrong!
 
 ```typescript
 class User {
-    public email: string;
-    private name: string;
-    protected age: number;
+  public email: string;
+  private name: string;
+  protected age: number;
 
-    constructor(email: string, name: string) {
-        this.email = email;
-        this.name = name;
-        this.age = 0;
-    }
+  constructor(email: string, name: string) {
+    this.email = email;
+    this.name = name;
+    this.age = 0;
+  }
 }
 
 const hitesh = new User("h@h.com", "hitesh");
@@ -796,10 +808,10 @@ const hitesh = new User("h@h.com", "hitesh");
 
 ```typescript
 class User {
-    public email: string;      // Accessible everywhere
-    private name: string;      // Only within this class
-    protected age: number;     // Within this class and subclasses
-    readonly city: string = "Delhi"; // Cannot be modified after initialization
+  public email: string; // Accessible everywhere
+  private name: string; // Only within this class
+  protected age: number; // Within this class and subclasses
+  readonly city: string = "Delhi"; // Cannot be modified after initialization
 }
 ```
 
@@ -808,18 +820,18 @@ class User {
 ```typescript
 // Instead of this:
 class User {
-    private name: string;
-    
-    constructor(name: string) {
-        this.name = name;
-    }
+  private name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
 }
 
 // Write this:
 class User {
-    constructor(private name: string) {
-        // name automatically becomes a private property
-    }
+  constructor(private name: string) {
+    // name automatically becomes a private property
+  }
 }
 ```
 
@@ -827,18 +839,18 @@ class User {
 
 ```typescript
 class User {
-    private _courseCount: number = 1;
+  private _courseCount: number = 1;
 
-    get courseCount(): number {
-        return this._courseCount;
-    }
+  get courseCount(): number {
+    return this._courseCount;
+  }
 
-    set courseCount(value: number) {
-        if (value <= 1) {
-            throw new Error("Course count should be more than 1");
-        }
-        this._courseCount = value;
+  set courseCount(value: number) {
+    if (value <= 1) {
+      throw new Error("Course count should be more than 1");
     }
+    this._courseCount = value;
+  }
 }
 
 const user = new User();
@@ -850,19 +862,19 @@ console.log(user.courseCount); // Uses getter
 
 ```typescript
 class User {
-    protected name: string;
-    
-    constructor(name: string) {
-        this.name = name;
-    }
+  protected name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
 }
 
 class SubUser extends User {
-    isFamily: boolean = true;
-    
-    changeCourseCount() {
-        this.name = "new name"; // ✅ Can access protected property
-    }
+  isFamily: boolean = true;
+
+  changeCourseCount() {
+    this.name = "new name"; // ✅ Can access protected property
+  }
 }
 ```
 
@@ -874,33 +886,31 @@ class SubUser extends User {
 
 ```typescript
 abstract class TakePhoto {
-    constructor(
-        public cameraMode: string,
-        public filter: string
-    ) {}
+  constructor(public cameraMode: string, public filter: string) {}
 
-    abstract getSepia(): void; // Must be implemented by subclasses
-    
-    getReelTime(): number {    // Can have concrete methods
-        return 8;
-    }
+  abstract getSepia(): void; // Must be implemented by subclasses
+
+  getReelTime(): number {
+    // Can have concrete methods
+    return 8;
+  }
 }
 
 // Cannot instantiate abstract class
 // const photo = new TakePhoto(); // ❌ Error
 
 class Instagram extends TakePhoto {
-    constructor(
-        public cameraMode: string,
-        public filter: string,
-        public burst: number
-    ) {
-        super(cameraMode, filter);
-    }
+  constructor(
+    public cameraMode: string,
+    public filter: string,
+    public burst: number
+  ) {
+    super(cameraMode, filter);
+  }
 
-    getSepia(): void {
-        console.log("Sepia applied");
-    }
+  getSepia(): void {
+    console.log("Sepia applied");
+  }
 }
 
 const insta = new Instagram("test", "test", 3); // ✅ Valid
@@ -920,10 +930,10 @@ const insta = new Instagram("test", "test", 3); // ✅ Valid
 
 ```typescript
 function detectType(val: number | string) {
-    if (typeof val === "string") {
-        return val.toLowerCase(); // TypeScript knows val is string
-    }
-    return val + 3; // TypeScript knows val is number
+  if (typeof val === "string") {
+    return val.toLowerCase(); // TypeScript knows val is string
+  }
+  return val + 3; // TypeScript knows val is number
 }
 ```
 
@@ -931,11 +941,11 @@ function detectType(val: number | string) {
 
 ```typescript
 function getUsersEmail(email: string | null) {
-    if (email) {
-        email.toLowerCase(); // TypeScript knows email is string
-    } else {
-        console.log("No email provided");
-    }
+  if (email) {
+    email.toLowerCase(); // TypeScript knows email is string
+  } else {
+    console.log("No email provided");
+  }
 }
 ```
 
@@ -943,11 +953,11 @@ function getUsersEmail(email: string | null) {
 
 ```typescript
 function example(x: string | number, y: string | boolean) {
-    if (x === y) {
-        // TypeScript knows both x and y are strings here
-        x.toUpperCase();
-        y.toLowerCase();
-    }
+  if (x === y) {
+    // TypeScript knows both x and y are strings here
+    x.toUpperCase();
+    y.toLowerCase();
+  }
 }
 ```
 
@@ -958,10 +968,10 @@ type Fish = { swim: () => void };
 type Bird = { fly: () => void };
 
 function move(animal: Fish | Bird) {
-    if ("swim" in animal) {
-        return animal.swim(); // TypeScript knows it's Fish
-    }
-    return animal.fly(); // TypeScript knows it's Bird
+  if ("swim" in animal) {
+    return animal.swim(); // TypeScript knows it's Fish
+  }
+  return animal.fly(); // TypeScript knows it's Bird
 }
 ```
 
@@ -969,11 +979,11 @@ function move(animal: Fish | Bird) {
 
 ```typescript
 function logValue(x: Date | string) {
-    if (x instanceof Date) {
-        console.log(x.toUTCString()); // TypeScript knows x is Date
-    } else {
-        console.log(x.toUpperCase()); // TypeScript knows x is string
-    }
+  if (x instanceof Date) {
+    console.log(x.toUTCString()); // TypeScript knows x is Date
+  } else {
+    console.log(x.toUpperCase()); // TypeScript knows x is string
+  }
 }
 ```
 
@@ -984,17 +994,17 @@ type Fish = { swim: () => void };
 type Bird = { fly: () => void };
 
 function isFish(pet: Fish | Bird): pet is Fish {
-    return (pet as Fish).swim !== undefined;
+  return (pet as Fish).swim !== undefined;
 }
 
 function getFood(pet: Fish | Bird) {
-    if (isFish(pet)) {
-        pet.swim(); // TypeScript knows pet is Fish
-        return "fish food";
-    } else {
-        pet.fly(); // TypeScript knows pet is Bird
-        return "bird food";
-    }
+  if (isFish(pet)) {
+    pet.swim(); // TypeScript knows pet is Fish
+    return "fish food";
+  } else {
+    pet.fly(); // TypeScript knows pet is Bird
+    return "bird food";
+  }
 }
 ```
 
@@ -1006,36 +1016,36 @@ function getFood(pet: Fish | Bird) {
 
 ```typescript
 interface Circle {
-    kind: "circle";
-    radius: number;
+  kind: "circle";
+  radius: number;
 }
 
 interface Square {
-    kind: "square"; 
-    side: number;
+  kind: "square";
+  side: number;
 }
 
 interface Rectangle {
-    kind: "rectangle";
-    length: number;
-    width: number;
+  kind: "rectangle";
+  length: number;
+  width: number;
 }
 
 type Shape = Circle | Square | Rectangle;
 
 function getArea(shape: Shape) {
-    switch (shape.kind) {
-        case "circle":
-            return Math.PI * shape.radius ** 2;
-        case "square":
-            return shape.side * shape.side;
-        case "rectangle":
-            return shape.length * shape.width;
-        default:
-            // This should never be reached
-            const _defaultforshape: never = shape;
-            return _defaultforshape;
-    }
+  switch (shape.kind) {
+    case "circle":
+      return Math.PI * shape.radius ** 2;
+    case "square":
+      return shape.side * shape.side;
+    case "rectangle":
+      return shape.length * shape.width;
+    default:
+      // This should never be reached
+      const _defaultforshape: never = shape;
+      return _defaultforshape;
+  }
 }
 ```
 
@@ -1045,19 +1055,19 @@ The `never` type represents values that never occur:
 
 ```typescript
 function getArea(shape: Shape) {
-    switch (shape.kind) {
-        case "circle":
-            return Math.PI * shape.radius ** 2;
-        case "square": 
-            return shape.side * shape.side;
-        case "rectangle":
-            return shape.length * shape.width;
-        default:
-            // If we add a new shape type but forget to handle it,
-            // TypeScript will error here
-            const _defaultforshape: never = shape;
-            return _defaultforshape;
-    }
+  switch (shape.kind) {
+    case "circle":
+      return Math.PI * shape.radius ** 2;
+    case "square":
+      return shape.side * shape.side;
+    case "rectangle":
+      return shape.length * shape.width;
+    default:
+      // If we add a new shape type but forget to handle it,
+      // TypeScript will error here
+      const _defaultforshape: never = shape;
+      return _defaultforshape;
+  }
 }
 ```
 
@@ -1091,24 +1101,24 @@ Key configuration options:
 ```json
 {
   "compilerOptions": {
-    "target": "ES2020",                    // JavaScript version to compile to
-    "lib": ["ES2020", "DOM"],              // Libraries to include
-    "module": "commonjs",                  // Module system
-    "rootDir": "./src",                    // Input directory
-    "outDir": "./dist",                    // Output directory
-    "strict": true,                        // Enable all strict type checks
-    "esModuleInterop": true,              // CommonJS/ES6 interoperability
-    "skipLibCheck": true,                 // Skip type checking of declaration files
+    "target": "ES2020", // JavaScript version to compile to
+    "lib": ["ES2020", "DOM"], // Libraries to include
+    "module": "commonjs", // Module system
+    "rootDir": "./src", // Input directory
+    "outDir": "./dist", // Output directory
+    "strict": true, // Enable all strict type checks
+    "esModuleInterop": true, // CommonJS/ES6 interoperability
+    "skipLibCheck": true, // Skip type checking of declaration files
     "forceConsistentCasingInFileNames": true,
-    "noImplicitAny": true,                // Flag implicit 'any' as error
-    "strictNullChecks": true,             // Enable strict null checks
-    "noUnusedLocals": true,               // Report unused local variables
-    "noUnusedParameters": true,           // Report unused parameters
-    "noImplicitReturns": true,            // Ensure all code paths return a value
-    "removeComments": true                // Remove comments from output
+    "noImplicitAny": true, // Flag implicit 'any' as error
+    "strictNullChecks": true, // Enable strict null checks
+    "noUnusedLocals": true, // Report unused local variables
+    "noUnusedParameters": true, // Report unused parameters
+    "noImplicitReturns": true, // Ensure all code paths return a value
+    "removeComments": true // Remove comments from output
   },
-  "include": ["src/**/*"],                // Files to include
-  "exclude": ["node_modules", "dist"]     // Files to exclude
+  "include": ["src/**/*"], // Files to include
+  "exclude": ["node_modules", "dist"] // Files to exclude
 }
 ```
 
@@ -1135,34 +1145,37 @@ tsc
 ### Type Safety Best Practices
 
 1. **Avoid `any` at all costs**
+
    ```typescript
    // ❌ Bad
    let data: any = fetchData();
-   
+
    // ✅ Good
    interface ApiResponse {
-       status: string;
-       data: User[];
+     status: string;
+     data: User[];
    }
    let data: ApiResponse = fetchData();
    ```
 
 2. **Use type inference when obvious**
+
    ```typescript
    // ❌ Too verbose
    let name: string = "John";
    let age: number = 30;
-   
+
    // ✅ Let TypeScript infer
-   let name = "John";        // inferred as string
-   let age = 30;             // inferred as number
+   let name = "John"; // inferred as string
+   let age = 30; // inferred as number
    ```
 
 3. **Be explicit with function returns**
+
    ```typescript
    // ✅ Always specify return types for functions
    function calculateTotal(price: number, tax: number): number {
-       return price + (price * tax);
+     return price + price * tax;
    }
    ```
 
@@ -1180,64 +1193,66 @@ tsc
 ### Common TypeScript Patterns
 
 1. **Optional chaining and nullish coalescing**
+
    ```typescript
    interface User {
-       name: string;
-       address?: {
-           street: string;
-           city: string;
-       };
+     name: string;
+     address?: {
+       street: string;
+       city: string;
+     };
    }
-   
+
    function getUserCity(user: User): string {
-       return user.address?.city ?? "Unknown";
+     return user.address?.city ?? "Unknown";
    }
    ```
 
 2. **Utility Types**
+
    ```typescript
    interface User {
-       id: number;
-       name: string;
-       email: string;
+     id: number;
+     name: string;
+     email: string;
    }
-   
+
    // Pick specific properties
-   type UserProfile = Pick<User, 'name' | 'email'>;
-   
+   type UserProfile = Pick<User, "name" | "email">;
+
    // Make all properties optional
    type PartialUser = Partial<User>;
-   
+
    // Make all properties required
    type RequiredUser = Required<User>;
-   
+
    // Exclude properties
-   type UserWithoutId = Omit<User, 'id'>;
+   type UserWithoutId = Omit<User, "id">;
    ```
 
 ### Error Handling Patterns
 
 ```typescript
 // Result pattern for error handling
-type Result<T, E = Error> = 
-    | { success: true; data: T }
-    | { success: false; error: E };
+type Result<T, E = Error> =
+  | { success: true; data: T }
+  | { success: false; error: E };
 
 async function fetchUser(id: string): Promise<Result<User>> {
-    try {
-        const user = await api.getUser(id);
-        return { success: true, data: user };
-    } catch (error) {
-        return { success: false, error: error as Error };
-    }
+  try {
+    const user = await api.getUser(id);
+    return { success: true, data: user };
+  } catch (error) {
+    return { success: false, error: error as Error };
+  }
 }
 
 // Usage
 const result = await fetchUser("123");
 if (result.success) {
-    console.log(result.data.name); // Type-safe access
+  console.log(result.data.name); // Type-safe access
 } else {
-    console.error(result.error.message);
+  console.error(result.error.message);
 }
 ```
 
@@ -1248,49 +1263,52 @@ if (result.success) {
 ### Common TypeScript Errors
 
 1. **Type 'X' is not assignable to type 'Y'**
+
    ```typescript
    // Problem
    let num: number = "123"; // ❌ Error
-   
+
    // Solutions
-   let num: number = 123;                    // Fix the type
-   let num: number = parseInt("123");        // Convert the value
-   let num: string | number = "123";         // Use union type
+   let num: number = 123; // Fix the type
+   let num: number = parseInt("123"); // Convert the value
+   let num: string | number = "123"; // Use union type
    ```
 
 2. **Object is possibly 'undefined'**
+
    ```typescript
    // Problem
    function greet(name?: string) {
-       return `Hello, ${name.toUpperCase()}`; // ❌ Error: name might be undefined
+     return `Hello, ${name.toUpperCase()}`; // ❌ Error: name might be undefined
    }
-   
+
    // Solutions
    function greet(name?: string) {
-       if (name) {
-           return `Hello, ${name.toUpperCase()}`;
-       }
-       return "Hello, Guest";
+     if (name) {
+       return `Hello, ${name.toUpperCase()}`;
+     }
+     return "Hello, Guest";
    }
-   
+
    // Or with optional chaining
    function greet(name?: string) {
-       return `Hello, ${name?.toUpperCase() ?? 'Guest'}`;
+     return `Hello, ${name?.toUpperCase() ?? "Guest"}`;
    }
    ```
 
 3. **Property 'X' does not exist on type 'Y'**
+
    ```typescript
    // Problem
    const user = { name: "John" };
    console.log(user.age); // ❌ Error: Property 'age' does not exist
-   
+
    // Solutions
    interface User {
-       name: string;
-       age?: number; // Make it optional
+     name: string;
+     age?: number; // Make it optional
    }
-   
+
    const user: User = { name: "John" };
    console.log(user.age ?? 0); // Safe access with default value
    ```
@@ -1298,11 +1316,13 @@ if (result.success) {
 ### Debugging Tips
 
 1. **Use TypeScript compiler with detailed errors**
+
    ```bash
    tsc --noEmit --pretty
    ```
 
 2. **Enable source maps for debugging**
+
    ```json
    {
      "compilerOptions": {
@@ -1312,17 +1332,18 @@ if (result.success) {
    ```
 
 3. **Use type assertions carefully**
+
    ```typescript
    // ❌ Dangerous
    const user = data as User;
-   
+
    // ✅ Better - with validation
    function isUser(obj: any): obj is User {
-       return obj && typeof obj.name === 'string';
+     return obj && typeof obj.name === "string";
    }
-   
+
    if (isUser(data)) {
-       // data is safely typed as User here
+     // data is safely typed as User here
    }
    ```
 
@@ -1362,6 +1383,7 @@ if (result.success) {
 ### Next Steps
 
 After mastering these concepts:
+
 - Explore advanced types (generics, conditional types, mapped types)
 - Learn about TypeScript with React (TSX)
 - Understand decorators and metadata
@@ -1373,16 +1395,19 @@ After mastering these concepts:
 ## Resources and Further Learning
 
 ### Official Resources
+
 - [TypeScript Official Documentation](https://www.typescriptlang.org/docs/)
 - [TypeScript Playground](https://www.typescriptlang.org/play)
 - [TypeScript GitHub Repository](https://github.com/microsoft/TypeScript)
 
 ### Recommended Reading
+
 - TypeScript Handbook (official)
 - Type definitions on DefinitelyTyped
 - TypeScript release notes for latest features
 
 ### Practice Projects
+
 - Convert existing JavaScript projects to TypeScript
 - Build a type-safe API client
 - Create reusable TypeScript utilities
@@ -1390,4 +1415,4 @@ After mastering these concepts:
 
 ---
 
-*This documentation is based on the complete TypeScript tutorial by Hitesh Chaudhary. All concepts and examples are derived from the original lecture series to provide comprehensive study notes for mastering TypeScript development.*
+_This documentation is based on the complete TypeScript tutorial by Hitesh Chaudhary. All concepts and examples are derived from the original lecture series to provide comprehensive study notes for mastering TypeScript development._
