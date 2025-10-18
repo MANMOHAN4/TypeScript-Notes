@@ -1,9 +1,5 @@
 # TypeScript – Complete Notes
 
-## Course Introduction
-
-Welcome to this comprehensive TypeScript tutorial series by **Hitesh Chaudhary**, a popular instructor with over 1,000 tutorials. This fast-paced series is designed to transform you from JavaScript to TypeScript, providing you with complete knowledge and practical skills.
-
 ### What You'll Learn
 
 - Complete understanding of TypeScript fundamentals
@@ -745,10 +741,9 @@ Type assertions tell TypeScript "trust me, I know what type this is":
 
 ```typescript
 // Basic syntax
-(someValue as string) <
-  // Alternative syntax (not recommended in JSX)
-  string >
-  someValue;
+someValue as string<// Alternative syntax (not recommended in JSX)
+string>;
+someValue;
 ```
 
 ### Practical Examples
@@ -1405,14 +1400,3 @@ After mastering these concepts:
 - TypeScript Handbook (official)
 - Type definitions on DefinitelyTyped
 - TypeScript release notes for latest features
-
-### Practice Projects
-
-- Convert existing JavaScript projects to TypeScript
-- Build a type-safe API client
-- Create reusable TypeScript utilities
-- Contribute type definitions to open source projects
-
----
-
-_This documentation is based on the complete TypeScript tutorial by Hitesh Chaudhary. All concepts and examples are derived from the original lecture series to provide comprehensive study notes for mastering TypeScript development._
