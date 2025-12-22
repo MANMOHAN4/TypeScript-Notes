@@ -63,10 +63,10 @@ Consider this JavaScript function:
 
 ```javascript
 function greet(name) {
-  return "Hello " + name + ", Welcome to Chai and Code";
+  return "Hello " + name + ",!";
 }
 
-console.log(greet("Hitesh"));
+console.log(greet("Manmohan"));
 ```
 
 This works fine when you pass a string. But what happens if you pass:
