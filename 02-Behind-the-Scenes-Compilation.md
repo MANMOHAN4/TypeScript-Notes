@@ -40,7 +40,7 @@ The lexer's job is to **scan your entire code** and break it down into **tokens*
 ### Example of Tokenization
 
 ```typescript
-const name: string = "Hitesh";
+const name: string = "Manmohan";
 ```
 
 Gets tokenized into:
@@ -49,7 +49,7 @@ Gets tokenized into:
 3. `:` (colon)
 4. `string` (type keyword)
 5. `=` (operator)
-6. `"Hitesh"` (string literal)
+6. `"Manmohan"` (string literal)
 7. `;` (semicolon)
 
 ### What Lexer Catches
@@ -131,10 +131,10 @@ Symbol tables are mappings that track:
 
 #### Example Symbol Table Entry
 ```typescript
-const drink = "chai";  // Symbol: drink, Type: string
+const drink = "coffee";  // Symbol: drink, Type: string
 let cups = 5;          // Symbol: cups, Type: number
-interface Tea {        // Symbol: Tea, Type: interface
-  flavor: string;
+interface Car {        // Symbol: Tea, Type: interface
+  model: string;
 }
 ```
 
