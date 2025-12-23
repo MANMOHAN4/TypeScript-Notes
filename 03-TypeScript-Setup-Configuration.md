@@ -28,11 +28,13 @@ npm install --save-dev typescript
 ```
 
 Or shorter:
+
 ```bash
 npm install -D typescript
 ```
 
 **Why project-level?**
+
 - Different projects may use different TypeScript versions
 - Makes the project portable and reproducible
 - Ensures team members use the same version
@@ -41,6 +43,7 @@ npm install -D typescript
 ### Global Installation (Not Recommended)
 
 If you insist on global installation:
+
 ```bash
 npm install -g typescript
 ```
@@ -66,21 +69,21 @@ The `tsconfig.json` file contains all TypeScript compilation options.
 ```json
 {
   "compilerOptions": {
-    "target": "ES2020",                    // JavaScript version to compile to
-    "module": "commonjs",                  // Module system (commonjs, es6, etc)
-    "lib": ["ES2020"],                     // Library definitions to include
-    "outDir": "./dist",                    // Where compiled JS goes
-    "rootDir": "./src",                    // Where TS source files are
-    "strict": true,                        // Enable all strict type checking
-    "esModuleInterop": true,               // CommonJS/ES module compatibility
-    "skipLibCheck": true,                  // Skip type checking of declaration files
+    "target": "ES2020", // JavaScript version to compile to
+    "module": "commonjs", // Module system (commonjs, es6, etc)
+    "lib": ["ES2020"], // Library definitions to include
+    "outDir": "./dist", // Where compiled JS goes
+    "rootDir": "./src", // Where TS source files are
+    "strict": true, // Enable all strict type checking
+    "esModuleInterop": true, // CommonJS/ES module compatibility
+    "skipLibCheck": true, // Skip type checking of declaration files
     "forceConsistentCasingInFileNames": true, // Force case-sensitive file names
-    "jsx": "react-jsx",                    // JSX handling mode
-    "declaration": true,                   // Generate .d.ts files
-    "sourceMap": true                      // Generate source maps
+    "jsx": "react-jsx", // JSX handling mode
+    "declaration": true, // Generate .d.ts files
+    "sourceMap": true // Generate source maps
   },
-  "include": ["src"],                      // Files to compile
-  "exclude": ["node_modules", "dist"]     // Files to exclude
+  "include": ["src"], // Files to compile
+  "exclude": ["node_modules", "dist"] // Files to exclude
 }
 ```
 
@@ -89,12 +92,14 @@ The `tsconfig.json` file contains all TypeScript compilation options.
 ### 1. **Target** (`target`)
 
 Specifies which JavaScript version to compile to:
+
 - `ES5` - Older JavaScript, wide browser support
 - `ES2015` - ES6, widely supported
 - `ES2020` - Modern JavaScript
 - `ESNext` - Latest features
 
 **Example Impact:**
+
 ```typescript
 // Modern TypeScript
 const message = `Hello ${name}`;
@@ -106,6 +111,7 @@ var message = "Hello " + name;
 ### 2. **Module System** (`module`)
 
 Specifies how modules are handled:
+
 - `commonjs` - Node.js style (default for Node)
 - `es6`/`es2015` - ES modules
 - `umd` - Universal Module Definition
@@ -113,6 +119,7 @@ Specifies how modules are handled:
 ### 3. **Root Directory** (`rootDir`)
 
 Where TypeScript looks for `.ts` files:
+
 ```json
 "rootDir": "./src"
 ```
@@ -122,6 +129,7 @@ This tells TypeScript: "All my TypeScript files are in the `src` folder."
 ### 4. **Output Directory** (`outDir`)
 
 Where compiled `.js` files are written:
+
 ```json
 "outDir": "./dist"
 ```
@@ -131,11 +139,13 @@ This says: "Put all generated JavaScript files in the `dist` folder."
 ### 5. **Strict Mode** (`strict`)
 
 The most important option! Enables all strict type checking:
+
 ```json
 "strict": true
 ```
 
 This is equivalent to enabling:
+
 - `noImplicitAny` - Disallow implicit any type
 - `strictNullChecks` - Strict null checking
 - `strictFunctionTypes` - Strict function types
@@ -147,6 +157,7 @@ This is equivalent to enabling:
 ### 6. **JSX Handling** (`jsx`)
 
 Options for JSX transformation:
+
 - `"react"` - For React without automatic import
 - `"react-jsx"` - For React 17+ with automatic import
 - `"preserve"` - Keep JSX as-is
@@ -154,6 +165,7 @@ Options for JSX transformation:
 ### 7. **Declaration Files** (`declaration`)
 
 Generate `.d.ts` files:
+
 ```json
 "declaration": true
 ```
@@ -163,6 +175,7 @@ This creates type definition files for library usage.
 ### 8. **Source Maps** (`sourceMap`)
 
 Generate source maps for debugging:
+
 ```json
 "sourceMap": true
 ```
@@ -184,12 +197,13 @@ touch src/index.ts
 ```
 
 Write some code:
+
 ```typescript
 function greet(name: string): string {
-  return `Hello ${name}, Welcome to Chai and Code`;
+  return `Hello ${name}!`;
 }
 
-const username = "Hitesh";
+const username = "Manmohan";
 console.log(greet(username));
 ```
 
@@ -202,6 +216,7 @@ npx tsc
 ```
 
 This command:
+
 - Reads `tsconfig.json`
 - Compiles all files in `src` directory
 - Outputs JavaScript to `dist` directory
@@ -210,6 +225,7 @@ This command:
 ### Generated Files
 
 After compilation, you'll have in `dist/`:
+
 - `index.js` - Compiled JavaScript
 - `index.js.map` - Source map
 - `index.d.ts` - Type definitions
@@ -217,16 +233,20 @@ After compilation, you'll have in `dist/`:
 ### Examine Generated JavaScript
 
 The generated `index.js` will look like:
+
 ```javascript
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 function greet(name) {
-    return `Hello ${name}, Welcome to Chai and Code`;
+  return `Hello, ${name}!`;
 }
-const username = "Hitesh";
+const username = "Manmohan";
 console.log(greet(username));
+//# sourceMappingURL=index.js.map
 ```
 
 Notice:
+
 - Type annotations (`: string`) are removed
 - Return type (`: string`) is removed
 - Code structure remains identical
@@ -253,7 +273,7 @@ Add scripts to `package.json`:
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "tsc && node dist/index.js",
+    "dev": "npx tsc",
     "watch": "tsc --watch"
   }
 }
@@ -282,11 +302,13 @@ npx tsc --watch
 ```
 
 Or use the npm script:
+
 ```bash
 npm run watch
 ```
 
 **What watch mode does:**
+
 - Monitors all TypeScript files
 - Automatically recompiles when you make changes
 - Very useful for development
@@ -301,11 +323,13 @@ npm install -D ts-node
 ```
 
 Then run TypeScript files directly:
+
 ```bash
 npx ts-node src/index.ts
 ```
 
 **Advantages:**
+
 - No compilation step needed
 - TypeScript runs directly
 - Faster feedback loop
@@ -318,6 +342,7 @@ npx ts-node src/index.ts
 ### Bun
 
 Bun can run TypeScript files directly:
+
 ```bash
 bun run src/index.ts
 ```
@@ -325,6 +350,7 @@ bun run src/index.ts
 ### Deno
 
 Deno also supports TypeScript natively:
+
 ```bash
 deno run src/index.ts
 ```
@@ -334,11 +360,13 @@ deno run src/index.ts
 ### For React Projects
 
 Additional packages needed:
+
 ```bash
 npm install --save-dev @types/react @types/react-dom
 ```
 
 Update `tsconfig.json`:
+
 ```json
 {
   "compilerOptions": {
@@ -355,6 +383,7 @@ npm install --save-dev @types/node
 ```
 
 Update `tsconfig.json`:
+
 ```json
 {
   "compilerOptions": {
@@ -401,14 +430,17 @@ Update `tsconfig.json`:
 ## Troubleshooting
 
 ### "tsc" command not found
+
 - Make sure you installed TypeScript: `npm install -D typescript`
 - Use `npx tsc` instead of just `tsc`
 
 ### Files not compiling
+
 - Check that source files are in `rootDir` (default: `./src`)
 - Verify file extensions are `.ts` for TypeScript
 
 ### Wrong JavaScript output
+
 - Check your `target` in `tsconfig.json`
 - Check `module` system is correct
 - View generated `.js` files to see what was produced

@@ -17,12 +17,13 @@ const variableName: TypeName = value;
 ### Example 1: Basic Inference
 
 ```typescript
-const drink = "chai";
+const drink = "coffee";
 ```
 
 When you hover over `drink`, TypeScript shows:
+
 ```
-let drink: string
+const drink: string
 ```
 
 TypeScript automatically inferred that `drink` is a string because you assigned a string value to it.
@@ -35,6 +36,7 @@ const moreCups = cups + 3;
 ```
 
 TypeScript knows:
+
 - `cups` is `number`
 - `moreCups` is `number`
 
@@ -60,13 +62,13 @@ Sometimes you NEED to explicitly annotate types:
 
 ```typescript
 // Without annotation - TypeScript can't know the intent
-let user;  // Type is 'any' - TOO LOOSE
+let user; // Type is 'any' - TOO LOOSE
 
 // With annotation - clear intent
-let user: string;  // You plan to assign a string later
+let user: string; // You plan to assign a string later
 
 // Full annotation
-const channelName: string = "Chai and Code";
+const userName: string = "Manmohan";
 ```
 
 ## Basic Type Annotations
@@ -74,12 +76,12 @@ const channelName: string = "Chai and Code";
 ### String Type
 
 ```typescript
-const name: string = "Hitesh";
+const name: string = "Manmohan";
 const greeting: string = `Hello ${name}`;
 
 // These would error:
-let userName: string = 42;  // ❌ Error: number is not assignable to string
-let userEmail: string = true;  // ❌ Error: boolean is not assignable to string
+let userName: string = 42; // Error: number is not assignable to string
+let userEmail: string = true; // Error: boolean is not assignable to string
 ```
 
 ### Number Type
@@ -90,7 +92,7 @@ const pi: number = 3.14;
 const count: number = 42;
 
 // These would error:
-let total: number = "100";  // ❌ Error: string is not assignable to number
+let total: number = "100"; // Error: string is not assignable to number
 ```
 
 ### Boolean Type
@@ -101,8 +103,8 @@ const hasError: boolean = false;
 const canAccess: boolean = true;
 
 // These would error:
-let isValid: boolean = 1;  // ❌ Error: number is not assignable to boolean
-let isEmpty: boolean = "";  // ❌ Error: string is not assignable to boolean
+let isValid: boolean = 1; // Error: number is not assignable to boolean
+let isEmpty: boolean = ""; // Error: string is not assignable to boolean
 ```
 
 ### Null and Undefined
@@ -112,6 +114,8 @@ const empty: null = null;
 const notDefined: undefined = undefined;
 ```
 
+In TypeScript, both null and undefined indicate the absence of a value, but they serve different purposes and have distinct characteristics. undefined generally indicates a variable that has not been assigned a value, while null represents an intentional, programmatic absence of any object value.
+
 ## The Two Types of Errors in TypeScript
 
 ### Error Type 1: Syntax Errors
@@ -119,28 +123,30 @@ const notDefined: undefined = undefined;
 Syntax errors are **obvious mistakes** in code structure:
 
 ```typescript
-let let;  // ❌ Syntax Error: can't use reserved keyword
-const = "value";  // ❌ Syntax Error: invalid variable name
-if (condition { }  // ❌ Syntax Error: missing closing parenthesis
+let let;  // Syntax Error: can't use reserved keyword
+const = "value";  // Syntax Error: invalid variable name
+if (condition { }  // Syntax Error: missing closing parenthesis
 ```
 
-These are caught immediately and shown as red squiggly underlines.
+These are usually caught immediately and shown as red squiggly underlines in IDE.
 
 ### Error Type 2: Type Errors
 
 Type errors occur when **data types don't match**:
 
 ```typescript
-let channelName: string = "Chai and Code";
-channelName = 42;  // ❌ Type Error: number is not assignable to string
+let userName: string = "Manmohan";
+userName = 42; // Type Error: number is not assignable to string
 ```
 
 **Most Important Error Message in TypeScript:**
+
 ```
 Type 'X' is not assignable to type 'Y'
 ```
 
 When you see this error, it means:
+
 - You declared something as type Y
 - You tried to assign type X to it
 - X and Y are incompatible types
@@ -152,6 +158,7 @@ This is the **most common error** you'll encounter, and it's actually **a good t
 ### When Inference Works Best
 
 TypeScript can infer types when:
+
 - You assign a literal value immediately
 - Values come from built-in functions with known return types
 - You perform type-narrowing operations
@@ -159,16 +166,16 @@ TypeScript can infer types when:
 ### When You MUST Annotate
 
 ```typescript
-// ❌ BAD - Type is 'any' (too permissive)
+// BAD - Type is 'any' (too permissive)
 let result;
 
-// ✅ GOOD - Clear intent
+// GOOD - Clear intent
 let result: number;
 
-// ❌ BAD - No initial value, can't infer
+// BAD - No initial value, can't infer
 let products;
 
-// ✅ GOOD - Explicit annotation
+// GOOD - Explicit annotation
 let products: string[];
 ```
 
@@ -177,6 +184,7 @@ let products: string[];
 This is crucial to understand:
 
 ### TypeScript Code
+
 ```typescript
 function greet(name: string): string {
   return `Hello ${name}`;
@@ -184,6 +192,7 @@ function greet(name: string): string {
 ```
 
 ### Compiled JavaScript
+
 ```javascript
 function greet(name) {
   return `Hello ${name}`;
@@ -191,6 +200,7 @@ function greet(name) {
 ```
 
 Notice:
+
 - `: string` parameter annotation is removed
 - `: string` return type annotation is removed
 - Function body is identical
@@ -203,14 +213,15 @@ Notice:
 ### The Problem
 
 ```typescript
-const channelName: string = "Chai and Code";
+const userName: string = "Manmohan";
 let userId: number;
 
 // Later in code, a team member does this:
-userId = channelName;  // ❌ ERROR!
+userId = userName; // ERROR!
 ```
 
 Error message:
+
 ```
 Type 'string' is not assignable to type 'number'
 ```
@@ -221,14 +232,14 @@ Type 'string' is not assignable to type 'number'
 
 ```typescript
 // Inferred types
-const isDone = true;        // Inferred: boolean
-const count = 42;           // Inferred: number
-const name = "John";        // Inferred: string
-const items = [1, 2, 3];    // Inferred: number[]
-const obj = {id: 1};        // Inferred: {id: number}
+const isDone = true; // Inferred: boolean
+const count = 42; // Inferred: number
+const name = "John"; // Inferred: string
+const items = [1, 2, 3]; // Inferred: number[]
+const obj = { id: 1 }; // Inferred: {id: number}
 
 // Without initial values - Type 'any' (loose, dangerous)
-let value;  // Type: any - can be anything!
+let value; // Type: any - can be anything!
 ```
 
 ## Optional Type Inference
@@ -236,12 +247,12 @@ let value;  // Type: any - can be anything!
 Sometimes TypeScript can't infer and needs help:
 
 ```typescript
-// ❌ Implicit 'any' - problematic
+// Implicit 'any' - problematic
 function add(a, b) {
   return a + b;
 }
 
-// ✅ With annotations - clear
+// With annotations - clear
 function add(a: number, b: number): number {
   return a + b;
 }
@@ -262,16 +273,19 @@ Enable `noImplicitAny` in `tsconfig.json` to catch these cases:
 ### Use Type Annotations When:
 
 1. **Function parameters** - Always annotate input types
+
    ```typescript
-   function processData(data: string): void { }
+   function processData(data: string): void {}
    ```
 
 2. **Function return types** - For clarity and safety
+
    ```typescript
-   function calculateTotal(items: number[]): number { }
+   function calculateTotal(items: number[]): number {}
    ```
 
 3. **Complex objects** - Use interfaces
+
    ```typescript
    interface User {
      name: string;
@@ -287,18 +301,20 @@ Enable `noImplicitAny` in `tsconfig.json` to catch these cases:
 ### Trust Inference When:
 
 1. **Simple variable assignments**
+
    ```typescript
-   const count = 5;  // Obviously a number
+   const count = 5; // Obviously a number
    ```
 
 2. **Array literals**
+
    ```typescript
-   const colors = ["red", "blue"];  // Obviously string[]
+   const colors = ["red", "blue"]; // Obviously string[]
    ```
 
 3. **Object literals**
    ```typescript
-   const user = {name: "John", age: 30};  // Type is clear
+   const user = { name: "John", age: 30 }; // Type is clear
    ```
 
 ## Key Takeaways
