@@ -46,8 +46,8 @@ class Tea {
 }
 
 const tea = new Tea("Chai");
-console.log(tea.flavor);  // ✅ OK - public property
-tea.flavor = "Ginger";    // ✅ OK - can modify
+console.log(tea.flavor);  // OK - public property
+tea.flavor = "Ginger";    // OK - can modify
 ```
 
 **Public means:**
@@ -69,8 +69,8 @@ class Tea {
 }
 
 const tea = new Tea("Chai");
-console.log(tea.flavor);              // ✅ OK
-console.log(tea.secretIngredients);   // ❌ ERROR: private property
+console.log(tea.flavor);              // OK
+console.log(tea.secretIngredients);   // ERROR: private property
 ```
 
 **Private means:**
@@ -93,12 +93,12 @@ class Tea {
 class PremiumTea extends Tea {
   constructor() {
     super();
-    console.log(this.formula);  // ✅ OK in subclass
+    console.log(this.formula);  // OK in subclass
   }
 }
 
 const premium = new PremiumTea();
-console.log(premium.formula);    // ❌ ERROR: protected outside class
+console.log(premium.formula);    // ERROR: protected outside class
 ```
 
 **Protected means:**
@@ -135,18 +135,18 @@ class Tea {
 
   // Public method that uses private method
   public prepare(): void {
-    this.brew();  // ✅ Can call private method here
+    this.brew();  // Can call private method here
     this.serve();
   }
 }
 
 const masalaTea = new Tea("Masala", 20);
-masalaTea.serve();      // ✅ OK - public method
-masalaTea.prepare();    // ✅ OK - public method that uses private
+masalaTea.serve();      // OK - public method
+masalaTea.prepare();    // OK - public method that uses private
 
 // These would error:
-// masalaTea.brew();                // ❌ private
-// masalaTea.secretIngredients;     // ❌ private
+// masalaTea.brew();                // private
+// masalaTea.secretIngredients;     // private
 ```
 
 ## Methods with Type Annotations
@@ -169,8 +169,8 @@ class Calculator {
 }
 
 const calc = new Calculator();
-calc.add(5, 3);                    // ✅ OK
-calc.add("5", 3);                  // ❌ ERROR: string is not assignable to number
+calc.add(5, 3);                    // OK
+calc.add("5", 3);                  // ERROR: string is not assignable to number
 ```
 
 ### Method Return Types
@@ -303,11 +303,11 @@ class Configuration {
   }
 }
 
-console.log(Configuration.API_URL);     // ✅ OK - access via class
-console.log(Configuration.getConfig()); // ✅ OK - call static method
+console.log(Configuration.API_URL);     // OK - access via class
+console.log(Configuration.getConfig()); // OK - call static method
 
 const config = new Configuration();
-// console.log(config.API_URL);  // ❌ Wrong way - use Configuration.API_URL
+// console.log(config.API_URL);  // Wrong way - use Configuration.API_URL
 ```
 
 ## Abstract Classes
@@ -333,7 +333,7 @@ class Circle extends Shape {
   }
 }
 
-// const shape = new Shape();  // ❌ ERROR: Cannot instantiate abstract class
+// const shape = new Shape();  // ERROR: Cannot instantiate abstract class
 const circle = new Circle(5);
 circle.describe();  // Area is: 78.53981633974483
 ```

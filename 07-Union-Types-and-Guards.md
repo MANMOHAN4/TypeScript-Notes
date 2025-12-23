@@ -10,9 +10,9 @@ A **union type** allows a variable to have **one of several types**.
 // A variable that can be either string or number
 let id: string | number;
 
-id = "user-123";  // ✅ Valid - string
-id = 123;         // ✅ Valid - number
-id = true;        // ❌ ERROR - boolean not in union
+id = "user-123"; // Valid - string
+id = 123; // Valid - number
+id = true; // ERROR - boolean not in union
 ```
 
 ### Union with Functions
@@ -35,35 +35,35 @@ The most common way to narrow union types:
 
 ```typescript
 function process(value: string | number) {
-  if (typeof value === 'string') {
+  if (typeof value === "string") {
     // Inside this block, TypeScript knows value is string
-    console.log(value.toUpperCase());  // ✅ string method
+    console.log(value.toUpperCase()); // string method
   } else {
     // Inside this block, TypeScript knows value is number
-    console.log(value + 1);  // ✅ number operation
+    console.log(value + 1); // number operation
   }
 }
 
-process("hello");  // Output: HELLO
-process(42);       // Output: 43
+process("hello"); // Output: HELLO
+process(42); // Output: 43
 ```
 
 ### Example: Flexible Function
 
 ```typescript
 function getLength(value: string | number | boolean): number {
-  if (typeof value === 'string') {
+  if (typeof value === "string") {
     return value.length;
-  } else if (typeof value === 'number') {
-    return Math.abs(value);  // Return absolute value
+  } else if (typeof value === "number") {
+    return Math.abs(value); // Return absolute value
   } else {
-    return value ? 1 : 0;    // Return 1 for true, 0 for false
+    return value ? 1 : 0; // Return 1 for true, 0 for false
   }
 }
 
-console.log(getLength("hello"));    // 5
-console.log(getLength(-42));        // 42
-console.log(getLength(true));       // 1
+console.log(getLength("hello")); // 5
+console.log(getLength(-42)); // 42
+console.log(getLength(true)); // 1
 ```
 
 ## Union with Literal Types
@@ -75,7 +75,7 @@ console.log(getLength(true));       // 1
 type Status = "pending" | "approved" | "rejected";
 
 function handleStatus(status: Status) {
-  switch(status) {
+  switch (status) {
     case "pending":
       console.log("Waiting for approval...");
       break;
@@ -88,9 +88,9 @@ function handleStatus(status: Status) {
   }
 }
 
-handleStatus("pending");     // ✅ OK
-handleStatus("approved");    // ✅ OK
-handleStatus("unknown");     // ❌ ERROR - not in union
+handleStatus("pending"); // OK
+handleStatus("approved"); // OK
+handleStatus("unknown"); // ERROR - not in union
 ```
 
 ## Literal Type with Numbers
@@ -99,7 +99,7 @@ handleStatus("unknown");     // ❌ ERROR - not in union
 type HttpStatus = 200 | 404 | 500;
 
 function getStatusMessage(status: HttpStatus): string {
-  switch(status) {
+  switch (status) {
     case 200:
       return "OK";
     case 404:
@@ -109,9 +109,9 @@ function getStatusMessage(status: HttpStatus): string {
   }
 }
 
-getStatusMessage(200);   // ✅ OK
-getStatusMessage(404);   // ✅ OK
-getStatusMessage(403);   // ❌ ERROR - not in union
+getStatusMessage(200); // OK
+getStatusMessage(404); // OK
+getStatusMessage(403); // ERROR - not in union
 ```
 
 ## Union with Objects (Discriminated Unions)
@@ -148,13 +148,13 @@ function handleResponse(response: ApiResponse) {
 const success: ApiResponse = {
   status: "success",
   data: { id: 1, name: "John" },
-  message: "User fetched successfully"
+  message: "User fetched successfully",
 };
 
 const error: ApiResponse = {
   status: "error",
   code: 404,
-  message: "User not found"
+  message: "User not found",
 };
 
 handleResponse(success);
@@ -185,7 +185,7 @@ interface BubbleTea {
 type TeaOrder = HotTea | ColdTea | BubbleTea;
 
 function serveTea(order: TeaOrder): string {
-  switch(order.type) {
+  switch (order.type) {
     case "hot":
       return `Serving hot ${order.flavor} tea at ${order.temperature}°C`;
     case "cold":
@@ -198,17 +198,17 @@ function serveTea(order: TeaOrder): string {
 const hotTea: TeaOrder = {
   type: "hot",
   temperature: 80,
-  flavor: "Masala"
+  flavor: "Masala",
 };
 
 const coldTea: TeaOrder = {
   type: "cold",
   iceCubes: 10,
-  flavor: "Ginger"
+  flavor: "Ginger",
 };
 
-console.log(serveTea(hotTea));   // Serving hot Masala tea at 80°C
-console.log(serveTea(coldTea));  // Serving cold Ginger tea with 10 ice cubes
+console.log(serveTea(hotTea)); // Serving hot Masala tea at 80°C
+console.log(serveTea(coldTea)); // Serving cold Ginger tea with 10 ice cubes
 ```
 
 ## The `in` Operator for Type Guards
@@ -260,8 +260,8 @@ function makePetSound(pet: Pet) {
   }
 }
 
-makePetSound(new Dog());  // Woof!
-makePetSound(new Cat());  // Meow!
+makePetSound(new Dog()); // Woof!
+makePetSound(new Cat()); // Meow!
 ```
 
 ## Exhaustive Checking
@@ -272,7 +272,7 @@ TypeScript can warn you if you don't handle all union cases:
 type Fruit = "apple" | "banana" | "orange";
 
 function getColor(fruit: Fruit): string {
-  switch(fruit) {
+  switch (fruit) {
     case "apple":
       return "red";
     case "banana":
@@ -285,14 +285,14 @@ function getColor(fruit: Fruit): string {
 
 // Exhaustive checking pattern
 function getColorExhaustive(fruit: Fruit): string {
-  switch(fruit) {
+  switch (fruit) {
     case "apple":
       return "red";
     case "banana":
       return "yellow";
     // Forgot "orange" - TypeScript will warn here if strict enough
     default:
-      const exhaustiveCheck: never = fruit;  // Error if not all cases handled
+      const exhaustiveCheck: never = fruit; // Error if not all cases handled
       return exhaustiveCheck;
   }
 }
@@ -300,9 +300,10 @@ function getColorExhaustive(fruit: Fruit): string {
 
 ## Union Type Best Practices
 
-### ✅ Good - Discriminated Union
+### Good - Discriminated Union
+
 ```typescript
-type Result = 
+type Result =
   | { status: "loading" }
   | { status: "success"; data: any }
   | { status: "error"; error: string };
@@ -314,7 +315,8 @@ function handle(result: Result) {
 }
 ```
 
-### ❌ Bad - Unclear Union
+### Bad - Unclear Union
+
 ```typescript
 type BadResult = string | number | boolean | object;
 
