@@ -37,12 +37,12 @@ function getFirst<T>(arr: T[]): T {
 }
 
 // Now it works with ANY type!
-const firstString = getFirst<string>(["a", "b", "c"]);     // ✅ Type: string
-const firstNumber = getFirst<number>([1, 2, 3]);           // ✅ Type: number
-const firstBoolean = getFirst<boolean>([true, false]);     // ✅ Type: boolean
+const firstString = getFirst<string>(["a", "b", "c"]);     // Type: string
+const firstNumber = getFirst<number>([1, 2, 3]);           // Type: number
+const firstBoolean = getFirst<boolean>([true, false]);     // Type: boolean
 
 // TypeScript can also infer the type
-const inferred = getFirst(["x", "y", "z"]);  // ✅ Type: string (inferred)
+const inferred = getFirst(["x", "y", "z"]);  // Type: string (inferred)
 ```
 
 ## Understanding the Syntax
@@ -143,8 +143,8 @@ function double<T extends number>(value: T): T {
   return (value * 2) as T;
 }
 
-double(5);      // ✅ OK
-double("five"); // ❌ ERROR - string doesn't extend number
+double(5);      // OK
+double("five"); // ERROR - string doesn't extend number
 ```
 
 ### Constraint with Objects
@@ -158,8 +158,8 @@ function getName<T extends Named>(obj: T): string {
   return obj.name;  // Safe - T is guaranteed to have 'name'
 }
 
-getName({ name: "John", age: 30 });  // ✅ OK - has name property
-getName({ age: 30 });                 // ❌ ERROR - missing name
+getName({ name: "John", age: 30 });  // OK - has name property
+getName({ age: 30 });                 // ERROR - missing name
 ```
 
 ### Constraint with Array Keys
@@ -171,8 +171,8 @@ function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
 
 const person = { name: "John", age: 30 };
 
-getProperty(person, "name");  // ✅ OK - "name" exists
-getProperty(person, "email"); // ❌ ERROR - "email" doesn't exist
+getProperty(person, "name");  // OK - "name" exists
+getProperty(person, "email"); // ERROR - "email" doesn't exist
 ```
 
 ## Default Type Parameters
