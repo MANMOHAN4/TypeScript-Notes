@@ -38,7 +38,7 @@ type Admin = User & { role: "admin" };
 type Status = "pending" | "approved" | "rejected";
 
 // Cannot be merged directly
-type User = {  // ❌ Would override, not merge
+type User = {  // Would override, not merge
   email?: string;
 };
 ```
@@ -136,8 +136,8 @@ function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
 }
 
 const user = { name: "John", age: 30 };
-getProperty(user, "name");  // ✅ OK - "name" is a valid key
-getProperty(user, "email"); // ❌ ERROR - "email" is not a valid key
+getProperty(user, "name");  // OK - "name" is a valid key
+getProperty(user, "email"); // ERROR - "email" is not a valid key
 ```
 
 ### Indexed Access Types
@@ -225,16 +225,16 @@ function handleStatus(status: Status): void {
 `unknown` is the **type-safe** version of `any`:
 
 ```typescript
-// ❌ BAD - any bypasses type checking
+// BAD - any bypasses type checking
 let value: any = getValue();
 value.someMethod();  // No error checking
 
-// ✅ GOOD - unknown requires type checking
+// GOOD - unknown requires type checking
 let value: unknown = getValue();
-// value.someMethod();  // ❌ ERROR - need to check type first
+// value.someMethod();  // ERROR - need to check type first
 
 if (typeof value === 'string') {
-  value.toUpperCase();  // ✅ OK - now we know it's a string
+  value.toUpperCase();  // OK - now we know it's a string
 }
 ```
 
