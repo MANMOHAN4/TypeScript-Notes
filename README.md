@@ -19,6 +19,6 @@ Welcome to this repo! This is a clean and written TypeScript Notes, broken down 
 ## Contributing
 
 Spotted a typo or want to improve an explanation?  
-Feel free to open a PR or start a discussion—friendly suggestions are always welcome.
+Feel free to open a PR or start a discussion. Friendly suggestions are always welcome.
 
 Happy coding with TypeScript!
