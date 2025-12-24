@@ -19,7 +19,7 @@ interface Admin extends User {
 
 // Can be merged (declaration merging)
 interface User {
-  email?: string;  // Adds email to existing User
+  email?: string; // Adds email to existing User
 }
 ```
 
@@ -38,12 +38,14 @@ type Admin = User & { role: "admin" };
 type Status = "pending" | "approved" | "rejected";
 
 // Cannot be merged directly
-type User = {  // Would override, not merge
+type User = {
+  // Would override, not merge
   email?: string;
 };
 ```
 
 **General Rule:**
+
 - Use **interfaces** for object contracts
 - Use **types** for unions, tuples, and primitives
 
@@ -62,7 +64,7 @@ interface User {
 type PartialUser = Partial<User>;
 
 const updates: PartialUser = {
-  name: "John"  // Can skip age and email
+  name: "John", // Can skip age and email
 };
 ```
 
@@ -114,7 +116,7 @@ type RolePermissions = Record<Role, string[]>;
 const permissions: RolePermissions = {
   admin: ["read", "write", "delete"],
   user: ["read", "write"],
-  guest: ["read"]
+  guest: ["read"],
 };
 ```
 
@@ -128,7 +130,7 @@ interface User {
   age: number;
 }
 
-type UserKeys = keyof User;  // "name" | "age"
+type UserKeys = keyof User; // "name" | "age"
 
 // Using in a function
 function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
@@ -136,7 +138,7 @@ function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
 }
 
 const user = { name: "John", age: 30 };
-getProperty(user, "name");  // OK - "name" is a valid key
+getProperty(user, "name"); // OK - "name" is a valid key
 getProperty(user, "email"); // ERROR - "email" is not a valid key
 ```
 
@@ -151,11 +153,11 @@ interface User {
   };
 }
 
-type Name = User["name"];                    // string
-type Profile = User["profile"];              // { bio: string; avatar: string }
-type Bio = User["profile"]["bio"];           // string
+type Name = User["name"]; // string
+type Profile = User["profile"]; // { bio: string; avatar: string }
+type Bio = User["profile"]["bio"]; // string
 
-type AllValues = User[keyof User];           // string | { bio: string; avatar: string }
+type AllValues = User[keyof User]; // string | { bio: string; avatar: string }
 ```
 
 ## Conditional Types
@@ -163,13 +165,13 @@ type AllValues = User[keyof User];           // string | { bio: string; avatar: 
 ```typescript
 type IsString<T> = T extends string ? true : false;
 
-type A = IsString<"hello">;   // true
-type B = IsString<number>;    // false
+type A = IsString<"hello">; // true
+type B = IsString<number>; // false
 
 // In functions
 function process<T>(value: T): T extends string ? number : string {
-  if (typeof value === 'string') {
-    return (value.length) as any;
+  if (typeof value === "string") {
+    return value.length as any;
   } else {
     return "not string" as any;
   }
@@ -188,9 +190,9 @@ function throwError(message: string): never {
 
 // Unreachable code
 function impossible(x: string | number): string {
-  if (typeof x === 'string') {
+  if (typeof x === "string") {
     return x;
-  } else if (typeof x === 'number') {
+  } else if (typeof x === "number") {
     return x.toString();
   } else {
     // x is never - impossible to reach here
@@ -227,14 +229,14 @@ function handleStatus(status: Status): void {
 ```typescript
 // BAD - any bypasses type checking
 let value: any = getValue();
-value.someMethod();  // No error checking
+value.someMethod(); // No error checking
 
 // GOOD - unknown requires type checking
 let value: unknown = getValue();
 // value.someMethod();  // ERROR - need to check type first
 
-if (typeof value === 'string') {
-  value.toUpperCase();  // OK - now we know it's a string
+if (typeof value === "string") {
+  value.toUpperCase(); // OK - now we know it's a string
 }
 ```
 
@@ -292,11 +294,11 @@ declare global {
   }
 }
 
-String.prototype.toCamelCase = function() {
+String.prototype.toCamelCase = function () {
   return this.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
 };
 
-const result = "hello-world".toCamelCase();  // "helloWorld"
+const result = "hello-world".toCamelCase(); // "helloWorld"
 ```
 
 ## Ambient Declarations
@@ -311,7 +313,7 @@ declare module "some-library" {
 }
 
 import { doSomething } from "some-library";
-const result = doSomething("hello");  // Safe to use
+const result = doSomething("hello"); // Safe to use
 ```
 
 ## ThisType
@@ -327,8 +329,8 @@ interface User {
 const user: User = {
   name: "John",
   getName() {
-    return this.name;  // 'this' is correctly typed as User
-  }
+    return this.name; // 'this' is correctly typed as User
+  },
 };
 ```
 
@@ -343,7 +345,3 @@ const user: User = {
 7. **Decorators** modify classes/properties (experimental)
 8. **Declaration merging** extends interfaces
 9. **Module augmentation** extends external types
-
----
-
-**Next:** We'll explore best practices and debugging TypeScript.
