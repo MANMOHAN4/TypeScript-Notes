@@ -37,12 +37,12 @@ function getFirst<T>(arr: T[]): T {
 }
 
 // Now it works with ANY type!
-const firstString = getFirst<string>(["a", "b", "c"]);     // Type: string
-const firstNumber = getFirst<number>([1, 2, 3]);           // Type: number
-const firstBoolean = getFirst<boolean>([true, false]);     // Type: boolean
+const firstString = getFirst<string>(["a", "b", "c"]); // Type: string
+const firstNumber = getFirst<number>([1, 2, 3]); // Type: number
+const firstBoolean = getFirst<boolean>([true, false]); // Type: boolean
 
 // TypeScript can also infer the type
-const inferred = getFirst(["x", "y", "z"]);  // Type: string (inferred)
+const inferred = getFirst(["x", "y", "z"]); // Type: string (inferred)
 ```
 
 ## Understanding the Syntax
@@ -54,6 +54,7 @@ function getFirst<T>(arr: T[]): T {
 ```
 
 Breaking this down:
+
 - `<T>` - **Type parameter** (like a variable for types)
 - `T` can be used anywhere in the function
 - `arr: T[]` - The array contains elements of type T
@@ -71,7 +72,7 @@ const result1 = pair<string, number>("hello", 42);
 const result2 = pair<boolean, string>(true, "world");
 
 // With type inference
-const result3 = pair("john", 30);  // Inferred as [string, number]
+const result3 = pair("john", 30); // Inferred as [string, number]
 ```
 
 ## Generic Interfaces
@@ -91,7 +92,7 @@ const stringContainer: Container<string> = {
   },
   setValue(value: string) {
     this.value = value;
-  }
+  },
 };
 
 const numberContainer: Container<number> = {
@@ -101,7 +102,7 @@ const numberContainer: Container<number> = {
   },
   setValue(value: number) {
     this.value = value;
-  }
+  },
 };
 ```
 
@@ -127,8 +128,8 @@ class Box<T> {
 const stringBox = new Box<string>("hello");
 const numberBox = new Box<number>(42);
 
-stringBox.get();   // Type: string
-numberBox.get();   // Type: number
+stringBox.get(); // Type: string
+numberBox.get(); // Type: number
 ```
 
 ## Generic Constraints
@@ -143,7 +144,7 @@ function double<T extends number>(value: T): T {
   return (value * 2) as T;
 }
 
-double(5);      // OK
+double(5); // OK
 double("five"); // ERROR - string doesn't extend number
 ```
 
@@ -155,11 +156,11 @@ interface Named {
 }
 
 function getName<T extends Named>(obj: T): string {
-  return obj.name;  // Safe - T is guaranteed to have 'name'
+  return obj.name; // Safe - T is guaranteed to have 'name'
 }
 
-getName({ name: "John", age: 30 });  // OK - has name property
-getName({ age: 30 });                 // ERROR - missing name
+getName({ name: "John", age: 30 }); // OK - has name property
+getName({ age: 30 }); // ERROR - missing name
 ```
 
 ### Constraint with Array Keys
@@ -171,7 +172,7 @@ function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
 
 const person = { name: "John", age: 30 };
 
-getProperty(person, "name");  // OK - "name" exists
+getProperty(person, "name"); // OK - "name" exists
 getProperty(person, "email"); // ERROR - "email" doesn't exist
 ```
 
@@ -183,9 +184,9 @@ function process<T, U = string>(value: T, extra: U): [T, U] {
   return [value, extra];
 }
 
-const a = process<number>(42, "hello");      // [42, "hello"]
+const a = process<number>(42, "hello"); // [42, "hello"]
 const b = process<number, boolean>(42, true); // [42, true]
-const c = process<number>(42);               // [42, ""] - defaults to string
+const c = process<number>(42); // [42, ""] - defaults to string
 ```
 
 ## Real-World Example: Generic Repository
@@ -203,7 +204,7 @@ class Repository<T extends Entity> {
   }
 
   getById(id: number): T | undefined {
-    return this.items.find(item => item.id === id);
+    return this.items.find((item) => item.id === id);
   }
 
   getAll(): T[] {
@@ -219,7 +220,7 @@ class Repository<T extends Entity> {
   }
 
   delete(id: number): boolean {
-    const index = this.items.findIndex(item => item.id === id);
+    const index = this.items.findIndex((item) => item.id === id);
     if (index !== -1) {
       this.items.splice(index, 1);
       return true;
@@ -254,8 +255,8 @@ productRepository.add({ id: 1, title: "Tea", price: 500 });
 ```typescript
 type IsString<T> = T extends string ? true : false;
 
-type A = IsString<"hello">;  // true
-type B = IsString<number>;   // false
+type A = IsString<"hello">; // true
+type B = IsString<number>; // false
 ```
 
 ## Key Takeaways
@@ -268,7 +269,3 @@ type B = IsString<number>;   // false
 6. **Classes and interfaces** can be generic
 7. **Default values** for type parameters: `<T = string>`
 8. **Real-world use** includes repositories, hooks, utilities
-
----
-
-**Next:** We'll explore working with React and TypeScript (if applicable).
