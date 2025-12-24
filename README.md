@@ -2,7 +2,7 @@
 
 Hey!
 
-Welcome to this repo! This is a clean, written TypeScript Notes, broken down into easy markdown files.
+Welcome to this repo! This is a clean and written TypeScript Notes, broken down into easy markdown files.
 
 ## What you’ll find here
 
