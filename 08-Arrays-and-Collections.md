@@ -27,13 +27,13 @@ TypeScript ensures you don't add wrong types to arrays:
 ```typescript
 const numbers: number[] = [1, 2, 3];
 
-numbers.push(4);      // ✅ OK - number
-numbers.push("five"); // ❌ ERROR - string is not assignable to number
+numbers.push(4);      // OK - number
+numbers.push("five"); // ERROR - string is not assignable to number
 
 const mixed: (string | number)[] = [1, "two", 3];
-mixed.push(4);        // ✅ OK
-mixed.push("five");   // ✅ OK
-mixed.push(true);     // ❌ ERROR - boolean not in union
+mixed.push(4);        // OK
+mixed.push("five");   // OK
+mixed.push(true);     // ERROR - boolean not in union
 ```
 
 ## Array Methods with Type Safety
@@ -76,9 +76,9 @@ const teas: Tea[] = [
 ];
 
 // TypeScript ensures each element has correct shape
-teas.push({ name: "Chamomile", price: 30 });     // ✅ OK
-teas.push({ name: "Black" });                     // ❌ ERROR - missing price
-teas.push({ name: "Herbal", price: "10" });      // ❌ ERROR - price must be number
+teas.push({ name: "Chamomile", price: 30 });     // OK
+teas.push({ name: "Black" });                     // ERROR - missing price
+teas.push({ name: "Herbal", price: "10" });      // ERROR - price must be number
 ```
 
 ## Readonly Arrays
@@ -86,13 +86,13 @@ teas.push({ name: "Herbal", price: "10" });      // ❌ ERROR - price must be nu
 ```typescript
 const colors: readonly string[] = ["red", "blue", "green"];
 
-colors.push("yellow");   // ❌ ERROR - readonly array
-colors[0] = "purple";    // ❌ ERROR - can't modify
+colors.push("yellow");   // ERROR - readonly array
+colors[0] = "purple";    // ERROR - can't modify
 
 // Readonly array as parameter
 function printArray(arr: readonly number[]): void {
   arr.forEach(item => console.log(item));
-  // arr.push(1);  // ❌ Not allowed
+  // arr.push(1);  // Not allowed
 }
 ```
 
@@ -106,9 +106,9 @@ A **tuple** is an array with a **fixed length and specific types** at each posit
 // A tuple with exactly 2 elements: string and number
 type StringNumberTuple = [string, number];
 
-const pair: StringNumberTuple = ["hello", 42];  // ✅ OK
-const pair: StringNumberTuple = ["hello"];      // ❌ ERROR - missing second element
-const pair: StringNumberTuple = ["hello", "42"]; // ❌ ERROR - second must be number
+const pair: StringNumberTuple = ["hello", 42];  // OK
+const pair: StringNumberTuple = ["hello"];      // ERROR - missing second element
+const pair: StringNumberTuple = ["hello", "42"]; // ERROR - second must be number
 ```
 
 ### Tuple with Multiple Types
@@ -137,9 +137,9 @@ console.log(message);  // "OK"
 // First two required, third optional
 type FlexibleTuple = [string, number, boolean?];
 
-const a: FlexibleTuple = ["hello", 42];        // ✅ OK
-const b: FlexibleTuple = ["hello", 42, true];  // ✅ OK
-const c: FlexibleTuple = ["hello"];            // ❌ ERROR - missing second element
+const a: FlexibleTuple = ["hello", 42];        // OK
+const b: FlexibleTuple = ["hello", 42, true];  // OK
+const c: FlexibleTuple = ["hello"];            // ERROR - missing second element
 ```
 
 ## Variadic Tuples
@@ -150,7 +150,7 @@ type StringNumberStrings = [string, number, ...string[]];
 
 const tuple1: StringNumberStrings = ["hello", 42];
 const tuple2: StringNumberStrings = ["hello", 42, "a", "b", "c"];
-const tuple3: StringNumberStrings = ["hello"];  // ❌ ERROR - missing number
+const tuple3: StringNumberStrings = ["hello"];  // ERROR - missing number
 ```
 
 ## Array Union Types
@@ -158,9 +158,9 @@ const tuple3: StringNumberStrings = ["hello"];  // ❌ ERROR - missing number
 ```typescript
 type NumOrStr = number[] | string[];
 
-const a: NumOrStr = [1, 2, 3];      // ✅ OK - number array
-const b: NumOrStr = ["a", "b"];     // ✅ OK - string array
-const c: NumOrStr = [1, "a"];       // ❌ ERROR - mixed types
+const a: NumOrStr = [1, 2, 3];      // OK - number array
+const b: NumOrStr = ["a", "b"];     // OK - string array
+const c: NumOrStr = [1, "a"];       // ERROR - mixed types
 
 // Type narrowing
 function process(arr: NumOrStr) {
@@ -263,7 +263,7 @@ if (order) {
 
 ## Common Array Mistakes to Avoid
 
-### ❌ Mistake 1: Wrong Type Inference
+### Mistake 1: Wrong Type Inference
 ```typescript
 // TypeScript infers this as (string | number)[]
 const mixed = [1, "two"];
@@ -272,7 +272,7 @@ const mixed = [1, "two"];
 const mixed: (string | number)[] = [1, "two"];
 ```
 
-### ❌ Mistake 2: Empty Array
+### Mistake 2: Empty Array
 ```typescript
 // Type is any[] - too loose!
 const items = [];
@@ -281,15 +281,15 @@ const items = [];
 const items: string[] = [];
 ```
 
-### ❌ Mistake 3: Modifying Readonly
+### Mistake 3: Modifying Readonly
 ```typescript
 function process(items: readonly string[]) {
-  // items.push("new");  // ❌ Not allowed
-  // const copy = [...items];  // ✅ Create a copy instead
+  // items.push("new");  // Not allowed
+  // const copy = [...items];  // Create a copy instead
 }
 ```
 
-### ✅ Good Practices
+### Good Practices
 ```typescript
 // Clear type annotation
 const numbers: number[] = [];
